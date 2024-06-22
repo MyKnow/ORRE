@@ -1,0 +1,115 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aeioudev.orre">
+
+    <!-- 인터넷 접속 권한, 데이터 통신 및 네트워크 사용이 필요한 경우에 요구됨 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 카메라 접근 권한, 사진 촬영 또는 비디오 녹화 기능에 필요 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    
+    <!-- 전화 상태 읽기 권한, 전화 상태 및 식별자 접근에 사용 -->
+    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/> -->
+    <!-- 전화 걸기 권한, 앱 내에서 전화 걸기 기능에 필요 -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!-- 음성 메일에 접근 및 추가 권한, 음성 메일 설정과 관리에 사용 -->
+    <!-- <uses-permission android:name="android.permission.ADD_VOICEMAIL"/> -->
+    <!-- SIP 사용 권한, 인터넷을 통한 통화 기능에 사용 -->
+    <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
+    <!-- 통화 기록 읽기 권한, 사용자의 통화 기록 접근에 사용 -->
+    <!-- <uses-permission android:name="android.permission.READ_CALL_LOG"/> -->
+    <!-- 통화 기록 쓰기 권한, 사용자의 통화 기록을 수정하거나 추가하는데 사용 -->
+    <!-- <uses-permission android:name="android.permission.WRITE_CALL_LOG"/> -->
+    <!-- 통화 리디렉션 서비스 바인딩 권한, 통화를 다른 번호로 리디렉션 하는데 사용 -->
+    <!-- <uses-permission android:name="android.permission.BIND_CALL_REDIRECTION_SERVICE"/> -->
+    <!-- 정밀 위치 권한, GPS를 사용한 정확한 위치 정보에 필요 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 대략적 위치 권한, 네트워크를 통한 대략적인 위치 정보에 필요 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 백그라운드 위치 접근 권한, 앱이 백그라운드에서 위치 정보를 계속해서 받아야 할 때 필요 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/> -->
+    <!-- 알림 게시 권한, 사용자에게 알림을 보내기 위해 필요 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>    
+    <!-- 부팅 완료 수신 권한, 기기 부팅 완료 후 자동으로 작동해야 하는 기능에 필요 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- 진동 권한, 기기에 진동 알림을 제공할 때 사용 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 화면 깨우기 권한, 기기의 화면을 깨워 알림 등을 표시할 때 사용 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 전체 화면 인텐트 사용 권한, 전체 화면 인텐트를 사용하여 사용자의 주의를 요구할 때 사용 -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <!-- 정확한 알람 스케줄링 권한, 정확한 시간에 알람을 설정할 때 필요 -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32" />
+    <!-- 정확한 알람 사용 권한, 정확한 시간에 알람을 사용할 때 필요 -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <!-- NFC 권한, 근거리 무선통신(NFC) 기능에 접근할 때 사용 -->
+    <!-- <uses-permission android:name="android.permission.NFC" /> -->
+    <!-- 배터리 최적화 무시 요청 권한, 배터리 절약 모드에서도 앱이 정상적으로 작동하도록 허용 -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <application
+        android:label="오리"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:enableOnBackInvokedCallback="true">
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="orre"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
+        
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true">
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="FLUTTER_NOTIFICATION_CLICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="high_importance_channel"/>
+
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2"/>
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+    </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+</manifest>
